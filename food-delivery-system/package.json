@@ -1,0 +1,22 @@
+{
+  "name": "food-delivery-system",
+  "version": "1.0.0",
+  "description": "Food Delivery Microservices System with RabbitMQ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "restaurant": "node restaurant-service/index.js",
+    "kitchen": "node kitchen-service/index.js",
+    "delivery": "node delivery-service/index.js",
+    "notification": "node notification-service/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["microservices", "rabbitmq", "food-delivery"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  }
+}

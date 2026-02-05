@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: food-delivery-rabbitmq
+    ports:
+      - "5672:5672"    # AMQP port
+      - "15672:15672"  # Management UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - food-delivery-network
+
+  # Agar kerak bo'lsa, servislarni ham Docker containerda ishlatish mumkin
+  # restaurant-service:
+  #   build: ./restaurant-service
+  #   ports:
+  #     - "3001:3001"
+  #   depends_on:
+  #     - rabbitmq
+  #   environment:
+  #     - RABBITMQ_URL=amqp://rabbitmq:5672
+  #   networks:
+  #     - food-delivery-network
+
+volumes:
+  rabbitmq_data:
+
+networks:
+  food-delivery-network:
+    driver: bridge
